@@ -9,6 +9,7 @@ import config from '../config/config';
 import path from 'path';
 import * as sourceMapSupport from 'source-map-support';
 import { blue, red, yellow, green, magenta } from 'colorette';
+import moment from 'moment-timezone';
 // import 'winston-mongodb';
 // import { MongoDBTransportInstance } from 'winston-mongodb';
 
@@ -30,7 +31,9 @@ const colorizelevel = (level: string) => {
 const consoleLogFormat = format.printf((info) => {
   const { level, message, timestamp, meta = {} } = info;
   const customLevel = colorizelevel(level.toUpperCase());
-  const customTimestamp = green(timestamp.slice(0, 19).replace('T', ' '));
+  const customTimestamp = green(
+    moment(timestamp).tz('Asia/Kolkata').format('DD-MM-YYYY HH:mm:ss'),
+  );
   const customMessage = message;
   const customMeta = util.inspect(meta, {
     depth: null,
@@ -80,7 +83,14 @@ const FileLogFormat = format.printf((info) => {
 const FileTransport = (): Array<FileTransportInstance> => {
   return [
     new transports.File({
-      filename: path.join(__dirname, '../', '../', 'logs', `${config.ENV}.log`),
+      filename: path.join(
+        __dirname,
+        '../',
+        '../',
+        '../',
+        'logs',
+        `${config.ENV}.log`,
+      ),
       level: 'info',
       format: format.combine(format.timestamp(), FileLogFormat),
       handleExceptions: true,
@@ -109,7 +119,6 @@ const FileTransport = (): Array<FileTransportInstance> => {
 export default createLogger({
   defaultMeta: {
     meta: {
-      timestamp: new Date(),
       application: 'nestjs Microservices',
       service: 'api',
     },

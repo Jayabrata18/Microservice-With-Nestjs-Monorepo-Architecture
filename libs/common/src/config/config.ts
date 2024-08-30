@@ -5,6 +5,7 @@ dotenvFlow.config();
 export default {
   ENV: process.env.ENV,
   PORT: process.env.PORT as unknown as number,
+  PORT2: process.env.PORT2 as unknown as number,
   SERVER_URL: process.env.SERVER_URL,
   MONGODB_DATABASE_URL: process.env.MONGODB_DATABASE_URL,
   POSTGRES_DATABASE_URL: process.env.POSTGRES_DATABASE_URL,

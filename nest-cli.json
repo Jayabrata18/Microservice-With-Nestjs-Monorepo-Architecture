@@ -1,24 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/microservice-with-nestjs-monorepo-architecture/src",
+  "sourceRoot": "apps/http-api-gateway/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/microservice-with-nestjs-monorepo-architecture/tsconfig.app.json"
+    "tsConfigPath": "apps/http-api-gateway/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/microservice-with-nestjs-monorepo-architecture",
+  "root": "apps/http-api-gateway",
   "projects": {
-    "microservice-with-nestjs-monorepo-architecture": {
-      "type": "application",
-      "root": "apps/microservice-with-nestjs-monorepo-architecture",
-      "entryFile": "main",
-      "sourceRoot": "apps/microservice-with-nestjs-monorepo-architecture/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/microservice-with-nestjs-monorepo-architecture/tsconfig.app.json"
-      }
-    },
     "http-api-gateway": {
       "type": "application",
       "root": "apps/http-api-gateway",
@@ -35,6 +26,15 @@
       "sourceRoot": "libs/common/src",
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "app2": {
+      "type": "application",
+      "root": "apps/app2",
+      "entryFile": "main",
+      "sourceRoot": "apps/app2/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/app2/tsconfig.app.json"
       }
     }
   }
