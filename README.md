@@ -17,4 +17,5 @@ module.exports = {
    }
  }
 10) yarn add dotenv-flow cross-env
-11)
+11) yarn add install winston
+12) 
