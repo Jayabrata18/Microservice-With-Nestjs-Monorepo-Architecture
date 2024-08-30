@@ -16,3 +16,5 @@ module.exports = {
      "subject-case": [0, "always", "sentence-case"],
    }
  }
+10) yarn add dotenv-flow cross-env
+11)
