@@ -11,7 +11,9 @@ describe('HttpApiGatewayController', () => {
       providers: [HttpApiGatewayService],
     }).compile();
 
-    httpApiGatewayController = app.get<HttpApiGatewayController>(HttpApiGatewayController);
+    httpApiGatewayController = app.get<HttpApiGatewayController>(
+      HttpApiGatewayController,
+    );
   });
 
   describe('root', () => {

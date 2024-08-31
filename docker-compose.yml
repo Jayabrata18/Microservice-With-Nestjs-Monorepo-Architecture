@@ -11,6 +11,8 @@ services:
             - "3000:3000"
         volumes:
             - ./apps/http-api-gateway:/usr/src/app
+            - /apps/http-api-gateway/node_modules
+            - /usr/src/app/logs
         depends_on:
             - nats
         # networks:
@@ -25,7 +27,8 @@ services:
             - .env.development
         volumes:
             - ./apps/app2:/usr/src/app
-            - /usr/src/apps/node_modules
+            - /apps/app2/node_modules
+            - /usr/src/app/logs
         depends_on:
             - nats
         # networks:
