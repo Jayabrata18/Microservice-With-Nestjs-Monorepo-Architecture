@@ -1,0 +1,39 @@
+services:
+    http-api-gateway:
+        build:
+            context: .
+            dockerfile: ./apps/http-api-gateway/Dockerfile
+            target: development
+        command: npm run start:dev http-api-gateway
+        env_file:
+            - .env.development
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./apps/http-api-gateway:/usr/src/app
+        depends_on:
+            - nats
+        # networks:
+        #     - microservice-with-nestjs-monorepo-architecture
+    app2:
+        build:
+            context: .
+            dockerfile: ./apps/app2/Dockerfile
+            target: development
+        command: npm run start:dev app2
+        env_file:
+            - .env.development
+        volumes:
+            - ./apps/app2:/usr/src/app
+            - /usr/src/apps/node_modules
+        depends_on:
+            - nats
+        # networks:
+        #     - microservice-with-nestjs-monorepo-architecture
+    nats:
+        image: nats:latest
+        environment:
+            - NATS_URL=nats://nats:4222
+        ports:
+            - 4222:4222
+
