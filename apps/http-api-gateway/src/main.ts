@@ -3,15 +3,26 @@ import { HttpApiGatewayModule } from './http-api-gateway.module';
 import logger from '@app/common/log/logger';
 import config from '@app/common/config/config';
 import { ValidationPipe } from '@nestjs/common';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import {
+  BaseRpcExceptionFilter,
+  MicroserviceOptions,
+  Transport,
+} from '@nestjs/microservices';
 
 async function bootstrap() {
   logger.info('---------Http-api-gateway is starting---------');
   const app = await NestFactory.create(HttpApiGatewayModule, {
     bufferLogs: true,
+    rawBody: true,
   });
-  app.useGlobalPipes(new ValidationPipe());
-  logger.info('Global pipes set');
+  app.setGlobalPrefix('api');
+  app.useGlobalFilters(new BaseRpcExceptionFilter());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+    }),
+  );
   const natsClientOptions: MicroserviceOptions = {
     transport: Transport.NATS,
     options: {
@@ -24,6 +35,7 @@ async function bootstrap() {
     logger.info(`  🚀   Microservice is running at port ${config.PORT}`, {
       meta: {
         PORT: config.PORT,
+        SERVER_NAME: config.SERVER_URL,
       },
     });
   });

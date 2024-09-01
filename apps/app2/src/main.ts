@@ -18,7 +18,12 @@ async function bootstrap() {
       },
     },
   );
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+    }),
+  );
   await app.listen();
   logger.info('App2 Bootstrap process completed');
 }
