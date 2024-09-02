@@ -36,7 +36,7 @@ async function bootstrap() {
     await app.listen();
     logger.info('App2 Bootstrap process completed', {
       meta: {
-        version: config.APP_VERSION,  
+        
       },
     });
 

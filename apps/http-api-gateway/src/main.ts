@@ -1,14 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { NestFactory } from '@nestjs/core';
 import { HttpApiGatewayModule } from './http-api-gateway.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import logger from '@app/common/log/logger';
-import config from '@app/common/config/config';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import {
   BaseRpcExceptionFilter,
   MicroserviceOptions,
   Transport,
 } from '@nestjs/microservices';
+import config from '@app/common/config/config';
 
 async function bootstrap() {
   logger.info('---------Http-api-gateway is starting---------');
@@ -29,6 +30,18 @@ async function bootstrap() {
         whitelist: true,
       }),
     );
+    app.enableVersioning({
+      type: VersioningType.URI,
+    })
+    logger.info('Setting up Swagger documentation...');
+    const swagger = new DocumentBuilder()
+      .setTitle('microservice-with-nestjs-monorepo-architecture')
+      .setDescription('The API Description')
+      .build();
+
+    const document = SwaggerModule.createDocument(app, swagger);
+    SwaggerModule.setup('/api/docs', app, document);
+    logger.info('Swagger documentation is set up successfully at /api/docs', { meta: { url: 'http://localhost:3000/api/docs' } });
 
     logger.info('Connecting to NATS server...', {
       meta: {
@@ -59,7 +72,6 @@ async function bootstrap() {
     logger.info('Service configuration', {
       meta: {
         environment: config.ENV,
-        version: config.APP_VERSION,
       },
     });
 

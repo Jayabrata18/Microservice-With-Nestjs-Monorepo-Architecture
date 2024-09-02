@@ -20,4 +20,4 @@
 11. yarn add install winston
 12. yarn add moment-timezone
 13. npm install @nestjs/microservices
-
+14. yarn add --save @nestjs/swagger swagger-ui-express
