@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { createLogger, format, transports } from 'winston';
 import util from 'util';
 import {
@@ -118,10 +119,10 @@ const FileTransport = (): Array<FileTransportInstance> => {
 // };
 export default createLogger({
   defaultMeta: {
-    meta: {
-      application: 'nestjs Microservices',
-      service: 'api',
-    },
+    // meta: {
+    //   application: 'nestjs Microservices',
+    //   service: 'api',
+    // },
   },
   transports: [
     ...FileTransport(),

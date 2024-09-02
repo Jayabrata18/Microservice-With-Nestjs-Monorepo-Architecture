@@ -1,9 +1,11 @@
+/* eslint-disable prettier/prettier */
 import dotenvFlow from 'dotenv-flow';
 
 dotenvFlow.config();
 
 export default {
   ENV: process.env.ENV,
+  APP_VERSION: process.env.APP_VERSION,
   PORT: process.env.PORT as unknown as number,
   PORT2: process.env.PORT2 as unknown as number,
   SERVER_URL: process.env.SERVER_URL,
@@ -20,7 +22,6 @@ export default {
   REDIS_PORT: process.env.REDIS_PORT,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   REDIS_DB: process.env.REDIS_DB,
-
   POSTGRES_USER: process.env.POSTGRES_USER,
   POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
   POSTGRES_DB: process.env.POSTGRES_DB,

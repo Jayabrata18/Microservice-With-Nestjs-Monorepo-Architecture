@@ -12,7 +12,7 @@ services:
         volumes:
             - ./apps/http-api-gateway:/usr/src/app
             - /apps/http-api-gateway/node_modules
-            - /usr/src/app/logs
+            - ../logs:/usr/src/app/logs
         depends_on:
             - nats
         # networks:
@@ -28,7 +28,7 @@ services:
         volumes:
             - ./apps/app2:/usr/src/app
             - /apps/app2/node_modules
-            - /usr/src/app/logs
+            - ./logs:/usr/src/app/logs
         depends_on:
             - nats
         # networks:
