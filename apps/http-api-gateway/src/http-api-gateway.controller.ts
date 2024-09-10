@@ -35,8 +35,18 @@ export class HttpApiGatewayController {
     return healthData;
   }
   @Get('health-app2')
-  getHealthApp2(): any {
-    logger.info('Received request for health check from app2');
+  getHealthApp2(@Req() request: Request): any {
+    logger.info('Received request for health check from app2', {
+      meta: {
+        ipAddress: request.ip,
+        method: request.method,
+        url: request.originalUrl,
+        timestamp: moment(timestamp).tz('Asia/Kolkata').format('DD-MM-YYYY HH:mm:ss'),
+
+
+        userAgent: request.headers['user-agent']
+      }
+    });
     return this.natsClient.send({ cmd: 'health-app2' }, {});
   }
 
