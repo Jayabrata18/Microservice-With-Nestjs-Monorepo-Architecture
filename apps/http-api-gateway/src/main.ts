@@ -41,7 +41,9 @@ async function bootstrap() {
 
     const document = SwaggerModule.createDocument(app, swagger);
     SwaggerModule.setup('/api/docs', app, document);
-    logger.info('Swagger documentation is set up successfully at /api/docs', { meta: { url: 'http://localhost:3000/api/docs' } });
+    logger.info('Swagger documentation is set up successfully at /api/docs', {
+      meta: {
+        url: `${config.SERVER_URL}/api/docs` } });
 
     logger.info('Connecting to NATS server...', {
       meta: {

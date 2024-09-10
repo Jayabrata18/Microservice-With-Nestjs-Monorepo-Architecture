@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Inject, Req } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Req } from '@nestjs/common';
 import { HttpApiGatewayService } from './http-api-gateway.service';
 import { ClientProxy } from '@nestjs/microservices';
 import logger from '@app/common/log/logger';
 import { Request } from 'express';
 import moment from 'moment-timezone';
+import { LoginUserDto } from '@app/common/dto/login-user.dto';
+import { CreateUserDto } from '@app/common/dto/create-user.dto';
 
 
 const timestamp = Date.now()
@@ -49,5 +51,33 @@ export class HttpApiGatewayController {
     });
     return this.natsClient.send({ cmd: 'health-app2' }, {});
   }
-
+  @Post('/signup')
+  createUser(@Body() createUserDto: CreateUserDto) {
+    console.log('api-gatweway', createUserDto);
+    logger.info(
+      'createUser method called with data: ' + JSON.stringify(createUserDto), {
+      meta: {
+        type: 'createUser',
+        data: JSON.stringify(createUserDto),
+        timestamp: new Date().toISOString(),
+      }
+    }
+    );
+    return this.natsClient.send({ cmd: 'create_user' }, createUserDto);
+  }
+  //login-user
+  @Post('/login')
+  loginUser(@Body() loginUserDto: LoginUserDto) {
+    console.log('api-gatweway', loginUserDto);
+    logger.info(
+      'loginUser method called with data: ' + JSON.stringify(loginUserDto), {
+      meta: {
+        type: 'loginUser',
+        data: JSON.stringify(loginUserDto),
+        timestamp: new Date().toISOString(),
+      }
+    }
+    );
+    return this.natsClient.send({ cmd: 'login_user' }, loginUserDto);
+  }
 }

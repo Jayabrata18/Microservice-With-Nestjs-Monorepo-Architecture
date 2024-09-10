@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpApiGatewayController } from './http-api-gateway.controller';
 import { HttpApiGatewayService } from './http-api-gateway.service';
