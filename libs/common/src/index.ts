@@ -6,3 +6,6 @@ export * from './config/config';
 export * from './constants/application';
 export * from './nats-client/nats-client.module';
 export * from './health/quicker';
+export * from './database/database.module';
+export * from './database/interface/database.interface';
+export * from './database/constants/database.constant';
