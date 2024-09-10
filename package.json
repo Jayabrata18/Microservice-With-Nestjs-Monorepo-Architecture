@@ -21,7 +21,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/apis/test/jest-e2e.json",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:dev:rebuild": "docker-compose -f docker-compose.yml -f docker-compose.yml up --build -V",
+    "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.yml up",
+    "docker:dev:down": "docker-compose -f docker-compose.yml -f docker-compose.yml down --remove-orphans",
+    "docker:dev:watch": "chokidar './apps/**/*' './libs/common/**/*' -c 'npm run docker:dev:rebuild'"
   },
   "lint-staged": {
     "*.ts": [
